@@ -7,6 +7,8 @@
 #include <QColor>
 #include <QDebug>
 #include <math.h>
+#include <vetor2d.h>
+#include <QTimer>
 
 const float DEG2RAD = 3.14159/180;
 
@@ -16,6 +18,8 @@ class MyGLWidget : public QGLWidget
 
 private:
     float z;
+    Vetor2D *posCirc, *direc;
+    QTimer * crono;
 
 protected:
     void paintGL();
@@ -24,10 +28,11 @@ protected:
 
 //Drawing Functions
     void draw();
-    void drawCircle(int x, int y, float r, int seg);
+    void drawCircle(float r, int seg);
 
     void keyPressEvent(QKeyEvent * event);
 public:
+    void loop();
     explicit MyGLWidget(QWidget *parent = 0);
     ~MyGLWidget();
 
