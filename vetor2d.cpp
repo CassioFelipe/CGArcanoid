@@ -19,3 +19,11 @@ double Vetor2D::getX(){
 double Vetor2D::getY(){
     return y;
 }
+
+void Vetor2D::refletirVert(){
+    x = -x;
+}
+
+void Vetor2D::refletirHori(){
+    y = -y;
+}

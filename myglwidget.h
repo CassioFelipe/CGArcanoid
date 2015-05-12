@@ -9,6 +9,8 @@
 #include <math.h>
 #include <vetor2d.h>
 #include <QTimer>
+#include <QDebug>
+#include <blocos.h>
 
 const float DEG2RAD = 3.14159/180;
 
@@ -20,6 +22,7 @@ private:
     float z;
     Vetor2D *posCirc, *direc;
     QTimer * crono;
+    Blocos *fase1;
 
 protected:
     void paintGL();
@@ -32,13 +35,13 @@ protected:
 
     void keyPressEvent(QKeyEvent * event);
 public:
-    void loop();
     explicit MyGLWidget(QWidget *parent = 0);
     ~MyGLWidget();
 
 signals:
 
 public slots:
+    void loop();
 };
 
 #endif // MYGLWIDGET_H

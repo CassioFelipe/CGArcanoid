@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     myglwidget.cpp \
-    vetor2d.cpp
+    vetor2d.cpp \
+    blocos.cpp
 
 HEADERS  += mainwindow.h \
     myglwidget.h \
-    vetor2d.h
+    vetor2d.h \
+    blocos.h
 
 FORMS    += mainwindow.ui

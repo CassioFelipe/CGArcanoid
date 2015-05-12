@@ -19,6 +19,8 @@ public:
     void somar(Vetor2D *a);
     double getX();
     double getY();
+    void refletirVert();
+    void refletirHori();
 
 };
 

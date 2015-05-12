@@ -1,13 +1,17 @@
 #include "myglwidget.h"
 
+#define RCIRC 0.05
+#define pTop -0.86f
+
 MyGLWidget::MyGLWidget(QWidget *parent) : QGLWidget(parent)
 {
     z = 0;
     crono = new QTimer(this);
     connect(crono, SIGNAL(timeout()), this, SLOT(loop()));
     crono->start(33);
-    posCirc = new Vetor2D(0, 0);
-    direc = new Vetor2D(0.1, 0.1);
+    posCirc = new Vetor2D(0.01, 0);
+    direc = new Vetor2D(0.01, 0.02);
+
 }
 
 MyGLWidget::~MyGLWidget()
@@ -19,14 +23,17 @@ void MyGLWidget::paintGL(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    drawCircle(0.05, 20);
+    glTranslatef(posCirc->getX(), posCirc->getY(), 0.0);
+    drawCircle(RCIRC, 20);
+    glLoadIdentity();
     glTranslatef(z,0,0);
+    fase1->draw();
     draw();
 
 }
 
 void MyGLWidget::initializeGL(){
-
+    fase1 = new Blocos(10, 10, 0.06, 0.08);
 }
 
 void MyGLWidget::resizeGL(int w, int h){
@@ -39,10 +46,10 @@ void MyGLWidget::draw(){
     //Plataforma
     glBegin(GL_QUADS);
         //glNormal3f(0,0,1);
-        glVertex3f(0.0f, -0.86f, 0.0f);
-        glVertex3f(0.3f, -0.86f, 0.0f);
-        glVertex3f(0.3f, -0.96f, 0.0f);
-        glVertex3f(0.0f, -0.96f, 0.0f);
+        glVertex3f(0.0f, pTop, 0.0f);
+        glVertex3f(0.3f, pTop, 0.0f);
+        glVertex3f(0.3f, pTop - 0.1, 0.0f);
+        glVertex3f(0.0f, pTop - 0.1, 0.0f);
     glEnd();
 
 
@@ -79,7 +86,23 @@ void MyGLWidget::drawCircle(float r, int seg){
 void MyGLWidget::loop(){
 
     posCirc->somar(direc);
+    if(posCirc->getX() + RCIRC > 1 || posCirc->getX() - RCIRC < -1){
+        direc->refletirVert();
+    }
+    if(posCirc->getY() + RCIRC > 1){
+        direc->refletirHori();
+    }
 
+    if(posCirc->getY() <= pTop && posCirc->getX() > z && posCirc->getX() < z + 0.3){
+        direc->refletirHori();
+    }
+
+    if(posCirc->getY() - RCIRC < -1){
+        //morreu
+    }
+
+    //direc->somar(new Vetor2D(-0.01, -0.01));
+    //qDebug() << "Debug is on the table\n";
     update();
 }
 
