@@ -26,8 +26,9 @@ void MyGLWidget::paintGL(){
     glTranslatef(posCirc->getX(), posCirc->getY(), 0.0);
     drawCircle(RCIRC, 8);
     glLoadIdentity();
-    glTranslatef(z,0,0);
     fase1->draw();
+    glLoadIdentity();
+    glTranslatef(z,0,0);
     draw();
 
 }
