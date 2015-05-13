@@ -1,6 +1,6 @@
 #include "myglwidget.h"
 
-#define RCIRC 0.05
+#define RCIRC 0.05f
 #define pTop -0.86f
 
 MyGLWidget::MyGLWidget(QWidget *parent) : QGLWidget(parent)
@@ -34,7 +34,7 @@ void MyGLWidget::paintGL(){
 }
 
 void MyGLWidget::initializeGL(){
-    fase1 = new Blocos(10, 10, 0.06, 0.08);
+    fase1 = new Blocos(10, 10, 0.1 , 0.2);
 }
 
 void MyGLWidget::resizeGL(int w, int h){
@@ -71,7 +71,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event){
 void MyGLWidget::drawCircle(float r, int seg){
     int x = posCirc->getX(), y = posCirc->getY();
 
-    qglColor(Qt::blue);
+    qglColor(Qt::red);
     glBegin( GL_TRIANGLE_FAN);
        glVertex2f(x,y);
        int n;
@@ -101,7 +101,10 @@ void MyGLWidget::loop(){
     if(posCirc->getY() - RCIRC < -1){
         //morreu
     }
-
+    if(fase1->colisao(posCirc, RCIRC) == 1){
+        qDebug() << "certo";
+        direc->refletirHori();
+    }
     //direc->somar(new Vetor2D(-0.01, -0.01));
     //qDebug() << "Debug is on the table\n";
     update();

@@ -16,11 +16,12 @@ private:
     float alt, larg, gap;
     float x, y;
     int blocs[1000][1000];
+    void convert(int & xm, int & ym);
 
 public:
     Blocos();
     Blocos(int _nc, int _nr, float _alt, float _larg);
-    int colisao(Vetor2D pos, float r);
+    int colisao(Vetor2D *pos, float r);
     void draw();
 };
 
