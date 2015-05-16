@@ -42,27 +42,51 @@ void Blocos::draw(){
 
 
 int Blocos::colisao(Vetor2D * pos, float r){
-    qDebug() << pos->getX() << ", " << pos->getY();
-    int xm, ym;
-    convert(pos->getX(), pos->getY(), xm, ym);
+    //qDebug() << pos->getX() << ", " << pos->getY();
+    int xm, ym, retorno = 0;
+    convert(pos->getX(), pos->getY() + r, xm, ym);
     if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
         if(blocs[xm][ym]){
             blocs[xm][ym]--;
-            return 1;
+            retorno += 1;
         }
     }
-    return 0;
+
+    convert(pos->getX(), pos->getY() - r, xm, ym);
+    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
+        if(blocs[xm][ym]){
+            blocs[xm][ym]--;
+            retorno += 1;
+        }
+    }
+
+    convert(pos->getX() + r, pos->getY(), xm, ym);
+    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
+        if(blocs[xm][ym]){
+            blocs[xm][ym]--;
+            retorno += 2;
+        }
+    }
+
+    convert(pos->getX() - r, pos->getY(), xm, ym);
+    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
+        if(blocs[xm][ym]){
+            blocs[xm][ym]--;
+            retorno += 2;
+        }
+    }
+    return retorno;
 }
 
 void Blocos::convert(double xf, double yf, int & xm, int & ym){
-    qDebug() << "xf antes: " << xf;
+    //qDebug() << "xf antes: " << xf;
     xf += 1;
-    qDebug() << "xf + 1 = " << xf;
+    //qDebug() << "xf + 1 = " << xf;
     xm = (int) (xf / (larg + gap));
-    qDebug() << "alt " << alt << " gap: " << gap << "alt + gap " << alt + gap << "xf / alt + gap " << xf / (alt + gap);
+    //qDebug() << "alt " << alt << " gap: " << gap << "alt + gap " << alt + gap << "xf / alt + gap " << xf / (alt + gap);
 
 
     yf -= 1;
     ym = (int) (yf / -(alt + gap));
-    qDebug() << "Converter " << xm << " " << ym;
+    //qDebug() << "Converter " << xm << " " << ym;
 }
