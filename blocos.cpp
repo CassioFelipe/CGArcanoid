@@ -43,23 +43,8 @@ void Blocos::draw(){
 
 int Blocos::colisao(Vetor2D * pos, float r){
     //qDebug() << pos->getX() << ", " << pos->getY();
-    int xm, ym, retorno = 0;
-    convert(pos->getX(), pos->getY() + r, xm, ym);
-    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
-        if(blocs[xm][ym]){
-            blocs[xm][ym]--;
-            retorno += 1;
-        }
-    }
 
-    convert(pos->getX(), pos->getY() - r, xm, ym);
-    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
-        if(blocs[xm][ym]){
-            blocs[xm][ym]--;
-            retorno += 1;
-        }
-    }
-
+/*
     convert(pos->getX() + r, pos->getY(), xm, ym);
     if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
         if(blocs[xm][ym]){
@@ -74,8 +59,32 @@ int Blocos::colisao(Vetor2D * pos, float r){
             blocs[xm][ym]--;
             retorno += 2;
         }
+    }*/
+    return 0;
+}
+
+bool Blocos::colisaoHor(Vetor2D *pos, Vetor2D *dir, float r){
+    int xm, ym, d = (dir->getY() < 0)?-1:1;
+    convert(pos->getX(), pos->getY() + r*d, xm, ym);
+    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
+        if(blocs[xm][ym]){
+            blocs[xm][ym]--;
+            return true;
+        }
     }
-    return retorno;
+    return false;
+}
+
+bool Blocos::colisaoVer(Vetor2D *pos, Vetor2D *dir, float r){
+    int xm, ym, d = (dir->getX() < 0)?-1:1;
+    convert(pos->getX() + r*d, pos->getY() , xm, ym);
+    if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
+        if(blocs[xm][ym]){
+            blocs[xm][ym]--;
+            return true;
+        }
+    }
+    return false;
 }
 
 void Blocos::convert(double xf, double yf, int & xm, int & ym){

@@ -22,6 +22,8 @@ public:
     Blocos();
     Blocos(int _nc, int _nr, float _alt, float _larg);
     int colisao(Vetor2D *pos, float r);
+    bool colisaoHor(Vetor2D *pos, Vetor2D *dir, float r);
+    bool colisaoVer(Vetor2D *pos, Vetor2D *dir, float r);
     void draw();
 };
 

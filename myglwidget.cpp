@@ -102,12 +102,12 @@ void MyGLWidget::loop(){
         //morreu
     }
 
-    if(fase1->colisao(posCirc, RCIRC) >= 2){
+    if(fase1->colisaoVer(posCirc, direc, RCIRC)){
         direc->refletirVert();
 
     }
 
-    if(fase1->colisao(posCirc, RCIRC) % 2){
+    if(fase1->colisaoHor(posCirc, direc, RCIRC)){
         direc->refletirHori();
     }
     //direc->somar(new Vetor2D(-0.01, -0.01));
