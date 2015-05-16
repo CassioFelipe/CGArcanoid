@@ -34,7 +34,7 @@ void MyGLWidget::paintGL(){
 }
 
 void MyGLWidget::initializeGL(){
-    fase1 = new Blocos(10, 10, 0.1 , 0.2);
+    fase1 = new Blocos(10, 10, 0.08 , 0.15);
 }
 
 void MyGLWidget::resizeGL(int w, int h){

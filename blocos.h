@@ -16,7 +16,7 @@ private:
     float alt, larg, gap;
     float x, y;
     int blocs[1000][1000];
-    void convert(int & xm, int & ym);
+    void convert(double xf, double yf, int & xm, int & ym);
 
 public:
     Blocos();

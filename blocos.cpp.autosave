@@ -55,14 +55,14 @@ int Blocos::colisao(Vetor2D * pos, float r){
 }
 
 void Blocos::convert(double xf, double yf, int & xm, int & ym){
-    qDebug() << "xf antes: " << xf;
+    //qDebug() << "xf antes: " << xf;
     xf += 1;
-    qDebug() << "xf + 1 = " << xf;
+    //qDebug() << "xf + 1 = " << xf;
     xm = (int) (xf / (larg + gap));
-    qDebug() << "alt " << alt << " gap: " << gap << "alt + gap " << alt + gap << "xf / alt + gap " << xf / (alt + gap);
+    //qDebug() << "alt " << alt << " gap: " << gap << "alt + gap " << alt + gap << "xf / alt + gap " << xf / (alt + gap);
 
 
     yf -= 1;
     ym = (int) (yf / -(alt + gap));
-    qDebug() << "Converter " << xm << " " << ym;
+    //qDebug() << "Converter " << xm << " " << ym;
 }
