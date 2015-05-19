@@ -1,4 +1,5 @@
 #include "blocos.h"
+#include <string>
 
 Blocos::Blocos()
 {
@@ -18,7 +19,8 @@ Blocos::Blocos(int _nc, int _nr, float _alt, float _larg){
             blocs[i][j] = 1;
         }
     }
-    blocs[2][5] = 0;
+    blocs[4][8] = -1;
+    blocs[5][9] = 2;
 }
 
 void Blocos::draw(){
@@ -27,7 +29,15 @@ void Blocos::draw(){
         glLoadIdentity();
         glTranslatef(i*larg + i*gap, 0,0);
         for(int j = 0; j < nrow; j++){
-            if(blocs[i][j] > 0){
+            if(blocs[i][j] != 0){
+                if(blocs [i][j] == -1){
+                    glColor3f(1,0,0);
+                }else if(blocs [i][j] == 2){
+                    glColor3f(0,1,0);
+                }else{
+                    glColor3f(0,0,1);
+                }
+
                 glBegin(GL_QUADS);
                    glVertex2f(x,y);
                    glVertex2f(x,y-alt);
@@ -68,7 +78,11 @@ bool Blocos::colisaoHor(Vetor2D *pos, Vetor2D *dir, float r){
     convert(pos->getX(), pos->getY() + r*d, xm, ym);
     if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
         if(blocs[xm][ym]){
+
+            if(blocs[xm][ym] > 0){
             blocs[xm][ym]--;
+            }
+
             return true;
         }
     }
@@ -80,7 +94,9 @@ bool Blocos::colisaoVer(Vetor2D *pos, Vetor2D *dir, float r){
     convert(pos->getX() + r*d, pos->getY() , xm, ym);
     if(xm >= 0 && xm < ncol && ym >= 0 && ym < nrow){
         if(blocs[xm][ym]){
-            blocs[xm][ym]--;
+            if(blocs[xm][ym] > 0){
+            blocs[xm][ym]--;}
+
             return true;
         }
     }
@@ -98,4 +114,32 @@ void Blocos::convert(double xf, double yf, int & xm, int & ym){
     yf -= 1;
     ym = (int) (yf / -(alt + gap));
     //qDebug() << "Converter " << xm << " " << ym;
+}
+
+void Blocos::LoadStage(int StageNumber){
+   std::string Filename, line;
+
+   switch(StageNumber){
+    case 1:
+       Filename = "Stage1.txt";
+       break;
+
+    case 2:
+       Filename = "Stage2.txt";
+       break;
+
+     case 3:
+       Filename = "Stage3.txt";
+       break;
+
+     default:
+       Filename = "GameOver";
+   }
+
+   std::ifstream myfile;
+   myfile.open(Filename.c_str());
+
+   if(myfile.is_open()){
+
+   }
 }
