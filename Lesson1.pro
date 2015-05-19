@@ -24,3 +24,9 @@ HEADERS  += mainwindow.h \
     blocos.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES += \
+    Stage1.txt
+
+RESOURCES += \
+    stages.qrc

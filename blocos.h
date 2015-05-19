@@ -12,6 +12,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <QTextStream>
+#include <QFile>
 
 class Blocos
 {
@@ -21,7 +23,7 @@ private:
     float x, y;
     int blocs[1000][1000];
     void convert(double xf, double yf, int & xm, int & ym);
-    void LoadStage(int StageNumber);
+    void LoadStage(QString StageNumber);
 public:
     Blocos();
     Blocos(int _nc, int _nr, float _alt, float _larg);

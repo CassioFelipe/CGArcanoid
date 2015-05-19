@@ -14,13 +14,15 @@ Blocos::Blocos(int _nc, int _nr, float _alt, float _larg){
     gap = 0.01;
     x = gap - 1;
     y = 1 - gap;
-    for(int i = 0; i < ncol; i++){
+    /*for(int i = 0; i < ncol; i++){
         for(int j = 0; j < nrow; j++){
             blocs[i][j] = 1;
         }
     }
     blocs[4][8] = -1;
-    blocs[5][9] = 2;
+    blocs[5][9] = 2;*/
+
+    LoadStage("1");
 }
 
 void Blocos::draw(){
@@ -116,30 +118,40 @@ void Blocos::convert(double xf, double yf, int & xm, int & ym){
     //qDebug() << "Converter " << xm << " " << ym;
 }
 
-void Blocos::LoadStage(int StageNumber){
-   std::string Filename, line;
+void Blocos::LoadStage(QString StageNumber){
+   QString Filename, line;
 
-   switch(StageNumber){
-    case 1:
-       Filename = "Stage1.txt";
-       break;
+   Filename = ":/Stage"+ StageNumber +".txt";
 
-    case 2:
-       Filename = "Stage2.txt";
-       break;
+   qDebug() << Filename;
 
-     case 3:
-       Filename = "Stage3.txt";
-       break;
+   QFile myfile(Filename);
 
-     default:
-       Filename = "GameOver";
-   }
 
-   std::ifstream myfile;
-   myfile.open(Filename.c_str());
+   if(myfile.open(QFile::ReadOnly)){
+    QTextStream in(&myfile);
+    in.setCodec("UTF-8");
 
-   if(myfile.is_open()){
+       for(int i=0;i<10;i++){
+           line = in.readLine();
 
+           for(int j = 0; j < 13; j++){
+               if(j >= line.size()){
+                   qDebug() << "numero de col insuficiente";
+                    break;
+               }
+               int val;
+               if(line.at(j).digitValue() == 9){
+                   val = -1;
+               }else{
+                   val = line.at(j).digitValue();
+               }
+               blocs[j][i] = val;
+
+           }
+       }
+
+   }else{
+       qDebug() << "could not open file";
    }
 }
